@@ -1,0 +1,19 @@
+{
+  "waitTime": 7200000,
+  "ports": [
+    {
+      "portOut": 22,
+      "portIn": 22,
+      "ip": "192.168.1.115",
+      "type": "tcp",
+      "name": "Projects-Server(SSH)"
+    },
+    {
+      "portOut": 80,
+      "portIn": 80,
+      "ip": "192.168.1.115",
+      "type": "tcp",
+      "name": "Projects-Server(http)"
+    }
+  ]
+}

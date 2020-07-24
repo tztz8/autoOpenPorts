@@ -1,0 +1,21 @@
+{
+  "_comment": "waitTime is how long it wait before check if the ports are still set",
+  "waitTime": 7200000,
+  "ports": [
+    {
+      "_comment": "portOut is the port visible outside the network, portIn is the port on the device you want to port forward",
+      "portOut": 22,
+      "portIn": 22,
+      "ip": "192.168.1.115",
+      "type": "tcp",
+      "name": "Projects-Server(SSH)"
+    },
+    {
+      "portOut": 80,
+      "portIn": 80,
+      "ip": "192.168.1.115",
+      "type": "tcp",
+      "name": "Projects-Server(http)"
+    }
+  ]
+}
