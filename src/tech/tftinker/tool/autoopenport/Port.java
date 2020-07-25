@@ -7,36 +7,30 @@ public class Port {
     public long portOut;
     public long portIn;
     public String ip;
+    public String type;
     public String name;
+    public String[] portMapperAddArgs;
 
-    public Port(long portOut, long portIn, String ip, String name){
+    public Port(long portOut, long portIn, String ip, String type, String name){
         this.portOut = portOut;
         this.portIn = portIn;
         // TODO: add if the ip fits
         this.ip = ip;
+        this.type = type;
         this.name = name;
+        this.portMapperAddArgs = new String[]{"-add",
+                "-externalPort", this.getPortOut(),
+                "-internalPort", this.getPortIn(),
+                "-ip", this.ip,
+                "-protocol", this.type,
+                "-description", this.name};
     }
 
-//    public Port(int portOut, int portIn, String ip, String name){
-//        new Port((long) portOut, (long) portIn,  ip,  name);
-//    }
-//
-//    public Port(int port, String ip, String name){
-//        new Port(port, port, ip, name);
-//    }
-//
-//    public Port(int portOut, int portIn, String name){
-//        InetAddress inetAddress;
-//        try {
-//            inetAddress = InetAddress.getLocalHost();
-//            new Port(portOut, portIn, inetAddress.getHostAddress(), name);
-//        } catch (UnknownHostException e) {
-//            e.printStackTrace();
-//            System.exit(1);
-//        }
-//    }
-//
-//    public Port(int port, String name){
-//        new Port(port, port, name);
-//    }
+    public String getPortOut() {
+        return "" + portOut;
+    }
+
+    public String getPortIn() {
+        return "" + portIn;
+    }
 }

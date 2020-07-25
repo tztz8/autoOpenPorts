@@ -41,6 +41,7 @@ public class Config {
                 ports[i] = new Port((long) port.get("portOut"),
                         (long) port.get("portIn"),
                         (String) port.get("ip"),
+                        (String) port.get("type"),
                         (String) port.get("name"));
             }
 
