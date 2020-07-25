@@ -1,5 +1,5 @@
 {
-  "waitTime": 7200000,
+  "waitTime": 7200,
   "ports": [
     {
       "portOut": 22,

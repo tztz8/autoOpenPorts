@@ -1,6 +1,6 @@
 {
-  "_comment": "waitTime is how long it wait before check if the ports are still set",
-  "waitTime": 7200000,
+  "_comment": "waitTime is how long it wait before check if the ports are still set in sec",
+  "waitTime": 7200,
   "ports": [
     {
       "_comment": "portOut is the port visible outside the network, portIn is the port on the device you want to port forward",
