@@ -15,6 +15,7 @@ public class Main {
 
     public static Config config;
     public static boolean printStartMessage = false;
+    public static boolean debugFlag = true;
 
     public static void main(String[] args) throws InterruptedException {
         if (UPnP.isUPnPAvailable()) { //is UPnP available?
@@ -30,7 +31,7 @@ public class Main {
                 }
 
                 if (!printStartMessage){
-                    print("First Start of auto open ports \n\n");
+                    print("First Start of auto open ports \n");
                     printStartMessage = true;
                 }
 
@@ -47,6 +48,13 @@ public class Main {
                             print("It is the same set port");
                         } else {
                             print(outPut.get("NewPortMappingDescription") + " is use the port at : " + outPut.get("NewInternalClient"), ConsoleColors.RED);
+                        }
+
+                        if (debugFlag) {
+                            print("The output is: ", ConsoleColors.PURPLE);
+                            for (String key : outPut.keySet()) {
+                                print("-> \"" + key + "\" : \"" + outPut.get(key).replaceAll("\\n", "\\\\n") + "\"", ConsoleColors.PURPLE);
+                            }
                         }
                     } else if (UPnP.openPortTCP(port.portOut, port.portIn, port.ip, port.name)) { //try to map port
                         print("UPnP port forwarding enabled");
@@ -99,6 +107,8 @@ public class Main {
                 BufferedWriter bw = new BufferedWriter(fileWritter);
                 if (color == ConsoleColors.RED){
                     bw.write(time + " : ERROR \"" + message + "\" ERROR\n");
+                }else if (color == ConsoleColors.PURPLE){
+                    bw.write(time + " : DEBUG " + message + " DEBUG\n");
                 }else {
                     bw.write(time + " : " + message + "\n");
                 }
