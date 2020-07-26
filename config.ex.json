@@ -1,6 +1,8 @@
 {
   "_comment": "waitTime is how long it wait before check if the ports are still set in sec",
   "waitTime": 7200,
+  "_comment1": "logFile is to save all the output",
+  "logFile": "./output.log",
   "ports": [
     {
       "_comment": "portOut is the port visible outside the network, portIn is the port on the device you want to port forward",
