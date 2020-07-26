@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 public class Main {
 
     public static Config config;
+    public static boolean printStartMessage = false;
 
     public static void main(String[] args) throws InterruptedException {
         if (UPnP.isUPnPAvailable()) { //is UPnP available?
@@ -26,6 +27,11 @@ public class Main {
                     System.exit(1);
                 } else {
                     print("Done Loading config file");
+                }
+
+                if (!printStartMessage){
+                    print("First Start of auto open ports \n\n");
+                    printStartMessage = true;
                 }
 
                 print("");
@@ -50,7 +56,14 @@ public class Main {
                     print("");
                 }
 
-                print("Waiting for " + (((double) config.waitTime)/60/60) + "hr");
+                if ((((double) config.waitTime)/60/60) >= 1){
+                    print("Waiting for " + (((double) config.waitTime)/60/60) + " hr's");
+                }else if ((((double) config.waitTime)/60) >= 1){
+                    print("Waiting for " + (((double) config.waitTime)/60) + " min's");
+                }else {
+                    print("Waiting for " + config.waitTime + " sec's");
+                }
+
                 TimeUnit.SECONDS.sleep(config.waitTime);
                 print("Restart Now");
                 print("");
@@ -84,7 +97,11 @@ public class Main {
 
                 FileWriter fileWritter = new FileWriter(f1.getName(), true);
                 BufferedWriter bw = new BufferedWriter(fileWritter);
-                bw.write(time + " : " + message + "\n");
+                if (color == ConsoleColors.RED){
+                    bw.write(time + " : ERROR \"" + message + "\" ERROR\n");
+                }else {
+                    bw.write(time + " : " + message + "\n");
+                }
                 bw.close();
             } catch (IOException e) {
                 e.printStackTrace();
