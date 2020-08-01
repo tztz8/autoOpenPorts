@@ -100,6 +100,20 @@ public class UPnP {
         if(!isUPnPAvailable()) return false;
         return defaultGW.openPort(port, true);
     }
+
+    /**
+     * Opens a TCP port on the gateway
+     *
+     * @param portIn TCP port (0-65535)
+     * @param portOut TCP port (0-65535)
+     * @param ip local IP adders
+     * @param description is the name given to the open port
+     * @return true if the operation was successful, false otherwise
+     */
+    public static boolean openPortUDP(int portOut, int portIn, String ip, String description) {
+        if(!isUPnPAvailable()) return false;
+        return defaultGW.openPort(portOut, portIn, ip, description, true);
+    }
     
     /**
      * Closes a TCP port on the gateway<br>

@@ -50,6 +50,7 @@ public class Main {
                     }
                     
                     if (outPut != null) { //is the port already mapped?
+//                    if (false) { //is the port already mapped?
                         print("UPnP port forwarding not enabled: port is already mapped", ConsoleColors.RED);
                         if (outPut.get("NewInternalPort").equalsIgnoreCase("" + port.portIn) &&
                                 outPut.get("NewInternalClient").equalsIgnoreCase(port.ip)){
@@ -64,8 +65,18 @@ public class Main {
                                 print("-> \"" + key + "\" : \"" + outPut.get(key).replaceAll("\\n", "\\\\n") + "\"", ConsoleColors.PURPLE);
                             }
                         }
-                    } else if (UPnP.openPortTCP(port.portOut, port.portIn, port.ip, port.name)) { //try to map port
-                        print("UPnP port forwarding enabled");
+                    } else if (port.type.equalsIgnoreCase("tcp")) { //try to map port
+                        if (UPnP.openPortTCP(port.portOut, port.portIn, port.ip, port.name)){
+                            print("UPnP port forwarding enabled");
+                        }else {
+                            print("UPnP port forwarding failed", ConsoleColors.RED);
+                        }
+                    } else if (port.type.equalsIgnoreCase("udp")){
+                        if (UPnP.openPortUDP(port.portOut, port.portIn, port.ip, port.name)){
+                            print("UPnP port forwarding enabled");
+                        }else {
+                            print("UPnP port forwarding failed", ConsoleColors.RED);
+                        }
                     } else {
                         print("UPnP port forwarding failed", ConsoleColors.RED);
                     }
