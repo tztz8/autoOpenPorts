@@ -155,7 +155,18 @@ public class UPnP {
      */
     public static boolean isMappedUDP(int port) {
         if(!isUPnPAvailable()) return false;
-        return defaultGW.isMapped(port, false);
+        return defaultGW.isMapped(port, true);
+    }
+
+    /**
+     * Checks if a TCP port is mapped<br>
+     *
+     * @param port TCP port (0-65535)
+     * @return true if the port is mapped, false otherwise
+     */
+    public static Map<String, String> isMappedUDPReturnOutPut(int port) {
+        if(!isUPnPAvailable()) return null;
+        return defaultGW.isMappedReturnOutPut(port, true);
     }
     
     /**

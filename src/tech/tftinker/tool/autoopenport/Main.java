@@ -40,8 +40,16 @@ public class Main {
                 // Load modified WaifUPnP
                 for(Port port: config.ports){
                     print("Opening " + port);
-                    Map<String, String> outPut = UPnP.isMappedTCPReturnOutPut(port.portOut);
-                    if (outPut.get("NewInternalPort") != null) { //is the port already mapped?
+                    Map<String, String> outPut = null;
+                    if(port.type.equalsIgnoreCase("tcp")){
+                        outPut = UPnP.isMappedTCPReturnOutPut(port.portOut);
+                    }else if (port.type.equalsIgnoreCase("udp")){
+                        outPut = UPnP.isMappedUDPReturnOutPut(port.portOut);
+                    }else {
+                        print("error with port setup", ConsoleColors.RED);
+                    }
+                    
+                    if (outPut != null) { //is the port already mapped?
                         print("UPnP port forwarding not enabled: port is already mapped", ConsoleColors.RED);
                         if (outPut.get("NewInternalPort").equalsIgnoreCase("" + port.portIn) &&
                                 outPut.get("NewInternalClient").equalsIgnoreCase(port.ip)){
