@@ -50,13 +50,13 @@ public class Main {
                     }
                     
                     if (outPut != null) { //is the port already mapped?
-//                    if (false) { //is the port already mapped?
+                    //if (false) {
                         print("UPnP port forwarding not enabled: port is already mapped", ConsoleColors.RED);
                         if (outPut.get("NewInternalPort").equalsIgnoreCase("" + port.portIn) &&
                                 outPut.get("NewInternalClient").equalsIgnoreCase(port.ip)){
                             print("It is the same set port");
                         } else {
-                            print(outPut.get("NewPortMappingDescription") + " is use the port at : " + outPut.get("NewInternalClient"), ConsoleColors.RED);
+                            print(outPut.get("NewPortMappingDescription") + " is use the port at : " + outPut.get("NewInternalClient"), ConsoleColors.RED_BOLD);
                         }
 
                         if (debugFlag) {
@@ -67,18 +67,18 @@ public class Main {
                         }
                     } else if (port.type.equalsIgnoreCase("tcp")) { //try to map port
                         if (UPnP.openPortTCP(port.portOut, port.portIn, port.ip, port.name)){
-                            print("UPnP port forwarding enabled");
+                            print("UPnP port forwarding enabled", ConsoleColors.GREEN_BACKGROUND + ConsoleColors.BLUE);
                         }else {
-                            print("UPnP port forwarding failed", ConsoleColors.RED);
+                            print("UPnP port forwarding failed", ConsoleColors.RED_BOLD);
                         }
                     } else if (port.type.equalsIgnoreCase("udp")){
                         if (UPnP.openPortUDP(port.portOut, port.portIn, port.ip, port.name)){
-                            print("UPnP port forwarding enabled");
+                            print("UPnP port forwarding enabled", ConsoleColors.GREEN_BACKGROUND + ConsoleColors.BLUE);
                         }else {
-                            print("UPnP port forwarding failed", ConsoleColors.RED);
+                            print("UPnP port forwarding failed", ConsoleColors.RED_BOLD);
                         }
                     } else {
-                        print("UPnP port forwarding failed", ConsoleColors.RED);
+                        print("UPnP port forwarding failed", ConsoleColors.RED_BOLD);
                     }
                     print("");
                 }
@@ -97,7 +97,7 @@ public class Main {
                 print("");
             }
         } else {
-            print("UPnP is not available", ConsoleColors.RED);
+            print("UPnP is not available", ConsoleColors.RED_BOLD);
         }
     }
 
@@ -124,14 +124,32 @@ public class Main {
 
                 FileWriter fileWritter = new FileWriter(f1.getName(), true);
                 BufferedWriter bw = new BufferedWriter(fileWritter);
-                if (color == ConsoleColors.RED){
+                if (color == ConsoleColors.RED) {
                     bw.write(time + " : ERROR \"" + message + "\" ERROR\n");
-                }else if (color == ConsoleColors.PURPLE){
+                }else if (color == ConsoleColors.RED_BOLD) {
+                    bw.write(time + " : !ERROR! \"" + message + "\" !ERROR!\n");
+                }else if (color == ConsoleColors.PURPLE) {
                     bw.write(time + " : DEBUG " + message + " DEBUG\n");
+                }else if (color == (ConsoleColors.GREEN_BACKGROUND + ConsoleColors.BLUE)) {
+                    bw.write(time + " : !GOOD! \"" + message + "\" !GOOD!\n");
                 }else {
                     bw.write(time + " : " + message + "\n");
                 }
                 bw.close();
+
+                File f2 = new File(config.importantLogFilePath);
+                if (!f2.exists()) {
+                    f2.createNewFile();
+                }
+
+                FileWriter fileWritter2 = new FileWriter(f2.getName(), true);
+                BufferedWriter bw2 = new BufferedWriter(fileWritter2);
+                if (color == ConsoleColors.RED_BOLD) {
+                    bw2.write(time + " : !ERROR! \"" + message + "\" !ERROR!\n");
+                }else if (color == (ConsoleColors.GREEN_BACKGROUND + ConsoleColors.BLUE)) {
+                    bw2.write(time + " : !GOOD! \"" + message + "\" !GOOD!\n");
+                }
+                bw2.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }

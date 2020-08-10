@@ -1,6 +1,7 @@
 {
   "waitTime": 7200,
   "logFile": "./output.log",
+  "importantLogFile": "./important.log",
   "ports": [
     {
       "portOut": 22,

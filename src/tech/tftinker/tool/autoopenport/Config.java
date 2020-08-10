@@ -12,12 +12,14 @@ import java.io.IOException;
 public class Config {
     public long waitTime;
     public String logFilePath;
+    public String importantLogFilePath;
     public Port[] ports;
 
-    public Config(long waitTime, Port[] ports, String logFilePath){
+    public Config(long waitTime, Port[] ports, String logFilePath, String importantLogFilePath){
         this.waitTime = waitTime;
         this.ports = ports;
         this.logFilePath = logFilePath;
+        this.importantLogFilePath = importantLogFilePath;
     }
 
     public static Config readConfigFile(String path){
@@ -34,6 +36,7 @@ public class Config {
 
             long waitTime = (long) jsonObject.get("waitTime");
             String logFilePath = (String) jsonObject.get("logFile");
+            String importantLogFilePath = (String) jsonObject.get("importantLogFile");
 
             JSONArray portsJSON = (JSONArray) jsonObject.get("ports");
 
@@ -48,7 +51,7 @@ public class Config {
                         (String) port.get("name"));
             }
 
-            return new Config(waitTime, ports, logFilePath);
+            return new Config(waitTime, ports, logFilePath, importantLogFilePath);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();

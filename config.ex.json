@@ -3,6 +3,8 @@
   "waitTime": 7200,
   "_comment1": "logFile is to save all the output",
   "logFile": "./output.log",
+  "_comment2": "logFile is to save all the important messages",
+  "importantLogFile": "./important.log",
   "ports": [
     {
       "_comment": "portOut is the port visible outside the network, portIn is the port on the device you want to port forward",
